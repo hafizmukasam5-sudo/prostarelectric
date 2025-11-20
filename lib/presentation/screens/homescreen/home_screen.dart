@@ -92,8 +92,8 @@ class HomeTabView extends StatelessWidget {
                                   },
                                   child: Image.asset(
                                     AppImages.user,
-                                    height: 35,
-                                    width: 35,
+                                    height: 30,
+                                    width: 30,
                                     fit: BoxFit.contain,
                                   ),
                                 ),
