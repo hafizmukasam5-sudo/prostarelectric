@@ -56,152 +56,189 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ).showSnackBar(SnackBar(content: Text(state.error)));
           }
         },
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Current Password',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                CustomTextField(
-                  controller: _currentPasswordController,
-                  hintText: 'Current Password',
-                  prefixIconImage: AppImages.password,
-                  isPassword: !_isCurrentPasswordVisible,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isCurrentPasswordVisible
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                      color: AppColors.textPrimary,
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _isCurrentPasswordVisible = !_isCurrentPasswordVisible;
-                      });
-                    },
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter current password';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24),
-                const Text(
-                  'New Password',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                CustomTextField(
-                  controller: _newPasswordController,
-                  hintText: 'New Password',
-                  prefixIconImage: AppImages.password,
-                  isPassword: !_isNewPasswordVisible,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isNewPasswordVisible
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                      color: AppColors.textPrimary,
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _isNewPasswordVisible = !_isNewPasswordVisible;
-                      });
-                    },
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter new password';
-                    }
-                    if (value.length < 6) {
-                      return 'Password must be at least 6 characters';
-                    }
-                    if (value == _currentPasswordController.text) {
-                      return 'New password must be different from current password';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Confirm New Password',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                CustomTextField(
-                  controller: _confirmPasswordController,
-                  hintText: 'Confirm New Password',
-                  prefixIconImage: AppImages.password,
-                  isPassword: !_isConfirmPasswordVisible,
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _isConfirmPasswordVisible
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                      color: AppColors.textPrimary,
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
-                      });
-                    },
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please confirm new password';
-                    }
-                    if (value != _newPasswordController.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 40),
-                BlocBuilder<AuthBloc, AuthState>(
-                  builder: (context, state) {
-                    return CustomButton(
-                      text: 'Reset Password',
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          context.read<AuthBloc>().add(
-                            ChangePasswordEvent(
-                              currentPassword: _currentPasswordController.text
-                                  .trim(),
-                              newPassword: _newPasswordController.text.trim(),
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  SingleChildScrollView(
+                    padding: const EdgeInsets.all(24),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Current Password',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
                             ),
-                          );
-                        }
-                      },
-                      isLoading: state is AuthLoading,
-                    );
-                  },
-                ),
-              ],
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            controller: _currentPasswordController,
+                            hintText: 'Current Password',
+                            prefixIconImage: AppImages.password,
+                            isPassword: !_isCurrentPasswordVisible,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isCurrentPasswordVisible
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                color: AppColors.textPrimary,
+                                size: 20,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isCurrentPasswordVisible =
+                                      !_isCurrentPasswordVisible;
+                                });
+                              },
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter current password';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 24),
+                          const Text(
+                            'New Password',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            controller: _newPasswordController,
+                            hintText: 'New Password',
+                            prefixIconImage: AppImages.password,
+                            isPassword: !_isNewPasswordVisible,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isNewPasswordVisible
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                color: AppColors.textPrimary,
+                                size: 20,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isNewPasswordVisible =
+                                      !_isNewPasswordVisible;
+                                });
+                              },
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter new password';
+                              }
+                              if (value.length < 6) {
+                                return 'Password must be at least 6 characters';
+                              }
+                              if (value == _currentPasswordController.text) {
+                                return 'New password must be different from current password';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 24),
+                          const Text(
+                            'Confirm New Password',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          CustomTextField(
+                            controller: _confirmPasswordController,
+                            hintText: 'Confirm New Password',
+                            prefixIconImage: AppImages.password,
+                            isPassword: !_isConfirmPasswordVisible,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _isConfirmPasswordVisible
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                color: AppColors.textPrimary,
+                                size: 20,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isConfirmPasswordVisible =
+                                      !_isConfirmPasswordVisible;
+                                });
+                              },
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please confirm new password';
+                              }
+                              if (value != _newPasswordController.text) {
+                                return 'Passwords do not match';
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 40),
+                          // BlocBuilder<AuthBloc, AuthState>(
+                          //   builder: (context, state) {
+                          //     return CustomButton(
+                          //       text: 'Reset Password',
+                          //       onPressed: () {
+                          //         if (_formKey.currentState!.validate()) {
+                          //           context.read<AuthBloc>().add(
+                          //             ChangePasswordEvent(
+                          //               currentPassword:
+                          //                   _currentPasswordController.text
+                          //                       .trim(),
+                          //               newPassword: _newPasswordController.text
+                          //                   .trim(),
+                          //             ),
+                          //           );
+                          //         }
+                          //       },
+                          //       isLoading: state is AuthLoading,
+                          //     );
+                          //   },
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.all(24),
+              child: BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  return CustomButton(
+                    text: 'Reset Password',
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                          ChangePasswordEvent(
+                            currentPassword: _currentPasswordController.text
+                                .trim(),
+                            newPassword: _newPasswordController.text.trim(),
+                          ),
+                        );
+                      }
+                    },
+                    isLoading: state is AuthLoading,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

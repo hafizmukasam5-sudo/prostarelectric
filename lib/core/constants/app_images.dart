@@ -14,11 +14,11 @@ class AppImages {
   static const String smilewoman = 'assets/images/welcome.jpeg';
 
   // ---- Bottom tabs icons ----
-  static const String home = 'assets/images/home.png';
+  static const String home = 'assets/images/homee.png';
   static const String homeselected = 'assets/images/home_selected.png';
   static const String fav = 'assets/images/heart.png';
   static const String favselected = 'assets/images/heart_selected.png';
-  static const String cart = 'assets/images/cart.png';
+  static const String cart = 'assets/images/cart_h.png';
   static const String cartselected = 'assets/images/cart_selected.png';
 
   // ---- Icons ----

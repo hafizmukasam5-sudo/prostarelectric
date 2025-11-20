@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:prostarelectrical/core/widgets/custom_appbar.dart';
+import 'package:prostarelectrical/presentation/screens/auth/bloc/auth_bloc.dart';
 import 'package:prostarelectrical/presentation/screens/auth/changepassword/change_password_screen.dart';
 import 'package:prostarelectrical/presentation/screens/auth/editprofile/edit_profile_screen.dart';
 import 'package:prostarelectrical/presentation/screens/contactscreen/contactus_screen.dart';
@@ -162,10 +163,19 @@ class ProfileView extends StatelessWidget {
                             title: 'Change Password',
                             onTap: () {
                               // Navigate to Change Password
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (_) => ChangePasswordScreen(),
+                              //   ),
+                              // );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (_) => ChangePasswordScreen(),
+                                  builder: (_) => BlocProvider(
+                                    create: (_) => AuthBloc(),
+                                    child: const ChangePasswordScreen(),
+                                  ),
                                 ),
                               );
                             },
